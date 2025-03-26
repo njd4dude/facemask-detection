@@ -2,3 +2,5 @@ cleanSCFaceData/
 Dataloaders/
 Datasets/
 wandb/
+Weights/
+elapsed_time.txt

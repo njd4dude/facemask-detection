@@ -4,6 +4,7 @@ import torch
 from torchvision import transforms
 import os
 from collections import defaultdict
+from saveSplit import save_images_to_folders
 
 # so that means the factor we have to look out for is the domain of the data between the train and validation since we already know the train/validation split is good.
 # another thing to look out for is the cropping of the face is done correctly. Task 3/22: the dataset contains a lot of augmented images so we have to be careful about that.
@@ -80,8 +81,13 @@ if __name__ == "__main__":
     check_dataset(train_dataset)
     print("\nvalidation_dataset")
     check_dataset(validation_dataset)
-
+    
+    # check for data leakage
     check_data_leakage(train_dataset, validation_dataset)
+
+    # Save images from the train and validation datasets for sanity check
+    save_subset_images(train_dataset, f"DatasetSplitImages/{dataset_folder_name}/train")
+    save_subset_images(validation_dataset, f"DatasetSplitImages/{dataset_folder_name}/validation")
 
     train_dataloader, validation_dataloader = create_dataloaders(train_dataset, validation_dataset)
 
